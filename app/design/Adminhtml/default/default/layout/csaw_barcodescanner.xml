@@ -4,6 +4,7 @@
         <reference name="head">
            <action method="addJs"><script>Csaw/BarcodeScanner/jquery-3.0.0.js</script></action>
            <action method="addJs"><script>Csaw/BarcodeScanner/trigger.js</script></action>
+           <action method="addJs"><script>Csaw/BarcodeScanner/stock.js</script></action>
             <action method="setTitle" translate="title">
                 <title>Barcode Scanner</title>
             </action>

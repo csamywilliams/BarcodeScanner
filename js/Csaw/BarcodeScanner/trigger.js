@@ -24,13 +24,8 @@ jQuery(function($){
         // show a dialog to user to ensure action or identifier is selected
         alert("Please ensure an action and at least one identifier has been picked.");
       }
-
     });
-
   });
-
-
-
 });
 
 /**
