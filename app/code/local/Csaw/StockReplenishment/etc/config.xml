@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Csaw_StockReplenishment>
+            <version>0.1.0</version>    <!-- Version number of your module -->
+        </Csaw_StockReplenishment>
+    </modules>
+    <admin>
+             <routers>
+                 <stockreplenishment>
+                     <use>admin</use>
+                     <args>
+                         <module>Csaw_StockReplenishment</module>
+                         <frontName>stockreplenishment</frontName>
+                     </args>
+                 </stockreplenishment>
+             </routers>
+         </admin>
+    <global>
+      <helpers>
+           <Csaw_StockReplenishment>
+               <class>Csaw_StockReplenishment_Helper</class>
+           </Csaw_StockReplenishment>
+       </helpers>
+    </global>
+    <adminhtml>
+       <layout>
+           <updates>
+               <Csaw_StockReplenishment>
+                   <file>csaw_stockreplenishment.xml</file>
+               </Csaw_StockReplenishment>
+           </updates>
+       </layout>
+   </adminhtml>
+</config>
+
+
+<!--use of front end controllers
+<frontend>
+    <routers>
+        <stockreplenishment>
+            <use>standard</use>
+            <args>
+                <module>Csaw_StockReplenishment</module>
+                <frontName>stockreplenishment</frontName>
+            </args>
+        </stockreplenishment>
+    </routers>
+</frontend> -->

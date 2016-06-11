@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Csaw_BarcodeScanner>
+            <version>0.1.0</version>    <!-- Version number of your module -->
+        </Csaw_BarcodeScanner>
+    </modules>
+    <admin>
+             <routers>
+                 <barcodescanner>
+                     <use>admin</use>
+                     <args>
+                         <module>Csaw_BarcodeScanner</module>
+                         <frontName>barcodescanner</frontName>
+                     </args>
+                 </barcodescanner>
+             </routers>
+         </admin>
+    <global>
+      <helpers>
+           <Csaw_BarcodeScanner>
+               <class>Csaw_BarcodeScanner_Helper</class>
+           </Csaw_BarcodeScanner>
+       </helpers>
+       <blocks>
+          <Csaw_BarcodeScanner>
+              <class>Csaw_BarcodeScanner_Block_View</class>
+          </Csaw_BarcodeScanner>
+      </blocks>
+    </global>
+    <adminhtml>
+       <layout>
+           <updates>
+               <Csaw_BarcodeScanner>
+                   <file>csaw_barcodescanner.xml</file>
+               </Csaw_BarcodeScanner>
+           </updates>
+       </layout>
+   </adminhtml>
+</config>
+
+
+<!--use of front end controllers
+<frontend>
+    <routers>
+        <stockreplenishment>
+            <use>standard</use>
+            <args>
+                <module>Csaw_StockReplenishment</module>
+                <frontName>stockreplenishment</frontName>
+            </args>
+        </stockreplenishment>
+    </routers>
+</frontend> -->

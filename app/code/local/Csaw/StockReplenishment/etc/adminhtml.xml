@@ -1,0 +1,33 @@
+<config>
+    <menu>
+        <csaw translate="title" module="Csaw_StockReplenishment">
+            <title>Stock</title>
+            <sort_order>15</sort_order>
+            <children>
+                <stockreplenishment>
+                    <title>Replenishment</title>
+                    <sort_order>1</sort_order>
+                    <action>stockreplenishment/index</action>
+                </stockreplenishment>
+            </children>
+        </csaw>
+    </menu>
+    <!-- access control list - grants access to certain users -->
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <csaw translate="title" module="Csaw_StockReplenishment">
+                        <title>Replenishment</title>
+                        <sort_order>1</sort_order>
+                        <children>
+                            <stockreplenishment>
+                                <title>Stock Replenishment</title>
+                            </stockreplenishment>
+                        </children>
+                    </csaw>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

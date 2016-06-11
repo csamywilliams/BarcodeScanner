@@ -1,0 +1,33 @@
+<config>
+    <menu>
+        <csaw translate="title" module="Csaw_BarcodeScanner">
+            <title>Stock</title>
+            <sort_order>15</sort_order>
+            <children>
+                <barcodescanner>
+                    <title>Barcode Scanenr</title>
+                    <sort_order>1</sort_order>
+                    <action>barcodescanner/index</action>
+                </barcodescanner>
+            </children>
+        </csaw>
+    </menu>
+    <!-- access control list - grants access to certain users -->
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <csaw translate="title" module="Csaw_BarcodeScanner">
+                        <title>Barcode Scanner</title>
+                        <sort_order>1</sort_order>
+                        <children>
+                            <barcodescanner>
+                                <title>Barcode Scanner</title>
+                            </barcodescanner>
+                        </children>
+                    </csaw>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
