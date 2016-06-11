@@ -9,8 +9,10 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
 
     public function saveAction()
     {
-      var_dump($this->getRequest()->getParams('transfer-action'));
 
+      echo "in saveAction";
+
+      return("help me");
     }
 
 }
