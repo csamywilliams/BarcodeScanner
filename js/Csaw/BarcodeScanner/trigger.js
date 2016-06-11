@@ -13,14 +13,24 @@ jQuery(function($){
       if(validated)
       {
         //show input box for barcode, sku to be entered or scanned
+        $('#scan-barcode').show();
       } else {
+        //if scan barcode div is showing, we must remove it
+        if($('#scan-barcode').is(":visible"))
+        {
+          $('#scan-barcode').hide();
+        }
+
         // show a dialog to user to ensure action or identifier is selected
-        alert("Please ensure an action and at least one identifier has been picked.")
+        alert("Please ensure an action and at least one identifier has been picked.");
       }
 
     });
 
   });
+
+
+
 });
 
 /**

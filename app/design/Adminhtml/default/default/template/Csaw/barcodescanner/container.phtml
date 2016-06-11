@@ -32,6 +32,19 @@
   {
     border: 1px solid lightgrey;
   }
+
+  #scanbox
+  {
+    width:50%;
+    height:30px;
+    font-size:16px;
+  }
+
+  #scan-barcode
+  {
+    display:none;
+    
+  }
 </style>
 <div class="page-title">
     <h1><?php echo $this->__('Barcode Scanner') ?></h1>
@@ -55,9 +68,11 @@
         <input class="chckboxid" type="checkbox" name="identifier[]" value="ID" /> ID
        <button class="margin-left" id='btn-start' type='button'><?php echo $this->__('Start'); ?></button>
       </div>
-
     </form>
   </div>
+</div>
+<div id="scan-barcode" class="row box">
+    <input id="scanbox" type="text" name="barcode" placeholder="Enter identifier or scan"><br>
 </div>
 
 <!-- "setLocation('<?php //echo Mage::helper("adminhtml")->getUrl("*/*/save") ?>')"
