@@ -53,11 +53,12 @@
         <input class="chckboxid" type="checkbox" name="identifier[]" value="EAN" /> EAN
         <input class="chckboxid" type="checkbox" name="identifier[]" value="GTIN" /> GTIN
         <input class="chckboxid" type="checkbox" name="identifier[]" value="ID" /> ID
-       <button class="margin-left" id='btn-start' onclick="setLocation('triggerAction')"  type='button'><?php echo $this->__('Start'); ?></button>
+       <button class="margin-left" id='btn-start' type='button'><?php echo $this->__('Start'); ?></button>
       </div>
 
     </form>
   </div>
 </div>
 
-<!-- "setLocation('<?php //echo Mage::helper("adminhtml")->getUrl("*/*/save") ?>')"  -->
+<!-- "setLocation('<?php //echo Mage::helper("adminhtml")->getUrl("*/*/save") ?>')"
+onclick="setLocation('triggerAction')"  -->

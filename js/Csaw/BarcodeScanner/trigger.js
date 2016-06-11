@@ -9,7 +9,14 @@ jQuery(function($){
       });
 
       var validated = validateActions(action, identifier);
-      console.log(validated);
+
+      if(validated)
+      {
+        //show input box for barcode, sku to be entered or scanned
+      } else {
+        // show a dialog to user to ensure action or identifier is selected
+        alert("Please ensure an action and at least one identifier has been picked.")
+      }
 
     });
 
