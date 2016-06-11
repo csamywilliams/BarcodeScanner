@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout>
+    <barcodescanner_index_index>
+        <reference name="head">
+           <action method="addJs"><script>Csaw/BarcodeScanner/jquery-3.0.0.js</script></action>
+           <action method="addJs"><script>Csaw/BarcodeScanner/trigger.js</script></action>
+            <action method="setTitle" translate="title">
+                <title>Barcode Scanner</title>
+            </action>
+        </reference>
+        <reference name="content">
+          <block type="page/html" name="barcodescanner" template="csaw/barcodescanner/container.phtml"/>
+        </reference>
+    </barcodescanner_index_index>
+</layout>
