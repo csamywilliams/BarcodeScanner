@@ -40,7 +40,7 @@
   <div class="row box">
       <div class="left action-div">
         <label><strong>Action</strong></label>
-        <select name="action-choice" form="transfer-action">
+        <select id="action-choice" form="transfer-action">
           <option value="blank">Select action</option>
           <option value="incoming">Incoming stock</option>
           <option value="outgoing">Outgoing stock</option>
@@ -49,10 +49,10 @@
       </div>
       <div>
         <label><strong>Identifier</strong></label>
-        <input class="chckboxid" type="checkbox" name="identifier" value="SKU" /> SKU
-        <input class="chckboxid" type="checkbox" name="identifier" value="EAN" /> EAN
-        <input class="chckboxid" type="checkbox" name="identifier" value="GTIN" /> GTIN
-        <input class="chckboxid" type="checkbox" name="identifier" value="ID" /> ID
+        <input class="chckboxid" type="checkbox" name="identifier[]" value="SKU" /> SKU
+        <input class="chckboxid" type="checkbox" name="identifier[]" value="EAN" /> EAN
+        <input class="chckboxid" type="checkbox" name="identifier[]" value="GTIN" /> GTIN
+        <input class="chckboxid" type="checkbox" name="identifier[]" value="ID" /> ID
        <button class="margin-left" id='btn-start' onclick="setLocation('triggerAction')"  type='button'><?php echo $this->__('Start'); ?></button>
       </div>
 
