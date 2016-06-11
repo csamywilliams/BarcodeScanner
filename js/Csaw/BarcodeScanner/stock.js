@@ -17,15 +17,20 @@ jQuery(function($){
 //jQuery & document end braces
   });
 
-  function sendRequest(identifier)
+  function sendRequest(code)
   {
 
-    var urlLink = "<?php echo Mage::helper('adminhtml')->getUrl(''*/*/save') ?>";
+    //get the identifier and action, may need to change as duplicating in trigger.js
+    var action = $('#action-choice').val();
+    var identifier = [];
+    $.each($("input[name='identifier[]']:checked"), function() {
+      identifier.push($(this).val());
+    });
 
     $.ajax({
         url: '/barcodescanner/index/save',
         type: "POST",
-        data: {form_key: window.FORM_KEY},
+        data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
           console.log(data);
         }
