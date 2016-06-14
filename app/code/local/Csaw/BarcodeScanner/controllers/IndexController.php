@@ -7,10 +7,23 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
        $this->renderLayout();
     }
 
-    public function saveAction()
+    public function searchAction()
     {
+      //get the barcode, identifier and action for the product scanned or entered.
+      $code = $this->getRequest()->getPost('input');
+      $action = $this->getRequest()->getPost('action');
+      $identifier = $this->getRequest()->getPost('identifier');
 
-      echo "in saveAction";
+
+      $product = Mage::getModel('barcodescanner/find')->findProduct();
+      if ($product) {
+
+      } else
+      {
+          throw new UnexpectedValueException('Expected product not available.'.$code);
+      }
+
+
 
       return("help me");
     }

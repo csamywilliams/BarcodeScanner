@@ -27,6 +27,11 @@
               <class>Csaw_BarcodeScanner_Block_View</class>
           </Csaw_BarcodeScanner>
       </blocks>
+      <models>
+        <barcodescanner>
+            <class>Csaw_BarcodeScanner_Model</class>
+        </barcodescanner>
+      </models>
     </global>
     <adminhtml>
        <layout>

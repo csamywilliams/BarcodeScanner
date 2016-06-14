@@ -29,7 +29,7 @@ jQuery(function($){
 
     $("#loading-mask").show();
     $.ajax({
-        url: '/barcodescanner/index/save',
+        url: '/barcodescanner/index/search',
         type: "POST",
         data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
