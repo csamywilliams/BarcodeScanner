@@ -17,18 +17,9 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
       if(isset($code) && !empty($identifier))
       {
         $product = Mage::getModel('barcodescanner/find')->findProduct($code, $identifier);
-        if ($product) {
-
-        } else
-        {
-            throw new UnexpectedValueException('Expected product not available.'.$code);
-        }
       }
 
-
-
-
-      return("help me");
+      echo json_encode($product);
     }
 
 }

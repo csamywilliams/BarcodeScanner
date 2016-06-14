@@ -9,42 +9,41 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
 
   public function findProduct($code, $identifiers)
   {
+
+    $product = null;
     //if code contains only digits then it must be an id, GTIN or EAN
     if(ctype_digit($code))
     {
-
       $length = sizeof($identifiers);
-
+      Mage::log($length, null, 'mylogfile.log');
       if($length == 1)
       {
-        $product = getProduct($code, $identifiers[0]);
+        $product = $this->getProduct($code, $identifiers);
       } else
       {
-        $product = searchByMultipleIdentifiers($code, $identifiers);
+        $product = $this->searchByMultipleIdentifiers($code, $identifiers);
       }
 
     } else
     {
-      if (in_array("SKU"))
+      if (in_array("SKU", $identifiers))
       {
         //can only be a SKU based on our individual products
-          $product = Mage::getModel('catalog/product')->loadByAttribute('SKU', $code);
+        $product = Mage::getModel('catalog/product')->loadByAttribute('SKU', $code);
       }
     }
 
-    if(isset($product) && $product != null)
+    if(isset($product))
     {
-      //can return the product
-      if (in_array("EAN"))
-      {
-          $product = Mage::getModel('catalog/product')->loadByAttribute('EAN', $code);
-      } else {
-        //something has gone wrong
-      }
+      $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($product);
+      Mage::log('stock '.$stock->getQty(), null, 'mylogfile.log');
     }
 
 
-    echo "im in here";
+
+    Mage::log($product->getData(), null, 'mylogfile.log');
+    return $product;
+
   }
 
   /**
@@ -57,12 +56,21 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     if(in_array("GTIN", $attribute))
     {
         $product = Mage::getModel('catalog/product')->loadByAttribute('GTIN', $code);
+        Mage::log('in gtin', null, 'mylogfile.log');
     } else if (in_array("EAN", $attribute))
     {
         $ean_product = Mage::getModel('catalog/product')->loadByAttribute('EAN', $code);
+        Mage::log('in ean', null, 'mylogfile.log');
+
     } else if (in_array("ID", $attribute))
     {
         $product = Mage::getModel('catalog/product')->load($code);
+        Mage::log('ID', null, 'mylogfile.log');
+
+    }  else if (in_array("SKU", $attribute))
+    {
+        $product = Mage::getModel('catalog/product')->loadByAttribute('SKU', $code);
+        Mage::log('SKU', null, 'mylogfile.log');
     }
 
     return $product;
@@ -76,7 +84,7 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     $products_found = array();
     foreach($identifiers as $attribute)
     {
-      $product = getProduct($code, $attribute);
+      $product = getProduct($code, $identifiers);
 
       if(isset($product) && $product != null)
       {

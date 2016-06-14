@@ -33,7 +33,13 @@ jQuery(function($){
         type: "POST",
         data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
-          console.log(data);
+          if (data === undefined)
+          {
+            console.log("data is undefined");
+          } else {
+            console.log(data);
+          }
+
           $("#loading-mask").hide();
         }
     });
