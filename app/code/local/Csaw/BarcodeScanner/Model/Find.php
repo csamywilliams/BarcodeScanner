@@ -2,7 +2,7 @@
 
 class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
 
-  public function _construct()
+  public function __construct()
   {
     $this->_init('barcodescanner/find');
   }
@@ -10,12 +10,12 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
   public function findProduct($code, $identifiers)
   {
 
-    $product = null;
+    $item_found = null;
     //if code contains only digits then it must be an id, GTIN or EAN
     if(ctype_digit($code))
     {
       $length = sizeof($identifiers);
-      Mage::log($length, null, 'mylogfile.log');
+
       if($length == 1)
       {
         $product = $this->getProduct($code, $identifiers);
@@ -36,13 +36,11 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     if(isset($product))
     {
       $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($product);
-      Mage::log('stock '.$stock->getQty(), null, 'mylogfile.log');
+      $item_found = Mage::getModel('barcodescanner/item', array('product' => $product->getData(),
+                                                          'stock' =>  $stock->getQty()));
     }
 
-
-
-    Mage::log($product->getData(), null, 'mylogfile.log');
-    return $product;
+    return $item_found;
 
   }
 

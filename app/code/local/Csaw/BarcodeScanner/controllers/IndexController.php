@@ -19,7 +19,7 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
         $product = Mage::getModel('barcodescanner/find')->findProduct($code, $identifier);
       }
 
-      echo json_encode($product);
+      return json_encode($product);
     }
 
 }
