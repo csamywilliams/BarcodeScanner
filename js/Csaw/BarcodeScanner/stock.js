@@ -27,12 +27,14 @@ jQuery(function($){
       identifier.push($(this).val());
     });
 
+    $("#loading-mask").show();
     $.ajax({
         url: '/barcodescanner/index/save',
         type: "POST",
         data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
           console.log(data);
+          $("#loading-mask").hide();
         }
     });
   }
