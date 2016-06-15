@@ -2,12 +2,12 @@
 
 class Csaw_BarcodeScanner_Model_Item
 {
-  protected $id;
-  protected $sku;
-  protected $qty;
-  protected $stock_required;
-  protected $gtin;
-  protected $ean;
+  public $id;
+  public $sku;
+  public $qty;
+  public $stock_required;
+  public $gtin;
+  public $ean;
 
   public function __construct($data)
   {

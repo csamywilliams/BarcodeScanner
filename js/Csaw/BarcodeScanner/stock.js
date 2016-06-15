@@ -31,16 +31,15 @@ jQuery(function($){
     $.ajax({
         url: '/barcodescanner/index/search',
         type: "POST",
+        dataType:"json",
         data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
-          if (data === undefined)
-          {
-            console.log("data is undefined");
-          } else {
             console.log(data);
-          }
-
-          $("#loading-mask").hide();
+            alert(JSON.stringify(data));
+            $("#loading-mask").hide();
+        },
+        error: function (req, status, err) {
+          console.log('Something went wrong', status, err);
         }
     });
   }
