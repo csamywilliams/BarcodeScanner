@@ -40,10 +40,10 @@
     font-size:16px;
   }
 
-  #scan-barcode
+  #scan-barcode, #results-table
   {
     display:none;
-    
+
   }
 </style>
 <div class="page-title">
@@ -73,6 +73,21 @@
 </div>
 <div id="scan-barcode" class="row box">
     <input id="scanbox" type="text" name="barcode" placeholder="Enter identifier or scan"><br>
+</div>
+<div id="results-table" class="row box">
+  <table width="100%" id="results">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Stock Required</th>
+          <th>Items</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+  </table>
 </div>
 
 <!-- "setLocation('<?php //echo Mage::helper("adminhtml")->getUrl("*/*/save") ?>')"

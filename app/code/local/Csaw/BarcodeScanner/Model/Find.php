@@ -40,6 +40,7 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
                                                           'stock' =>  $stock->getQty()));
     }
 
+    Mage::log($product, null, 'item.log');
     return $item_found;
 
   }
@@ -91,5 +92,7 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     }
     return $products_found;
   }
+
+
 
 }

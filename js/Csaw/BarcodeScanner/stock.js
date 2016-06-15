@@ -35,13 +35,30 @@ jQuery(function($){
         data: {form_key: window.FORM_KEY, input: code, action: action, identifier: identifier},
         success: function(data) {
             console.log(data);
-            alert(JSON.stringify(data));
             $("#loading-mask").hide();
+
+            drawTable(data);
+
+            $("#results-table").show();
         },
         error: function (req, status, err) {
           console.log('Something went wrong', status, err);
         }
     });
+  }
+
+  function drawTable(data)
+  {
+    var sku = data['sku'];
+    var qty = data['qty'];
+    var stock_required = data['stock_required'];
+    var product_name = data['name'];
+
+
+    var row = "<tr><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td></tr>";
+
+
+    $('#results tr:last').after(row);
   }
 
 
