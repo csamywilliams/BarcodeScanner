@@ -8,18 +8,32 @@ jQuery(function($){
           var input = $('#scanbox').val();
           if(input != null || input != '')
           {
+              var rowId = replaceString(input);
+              if($('#results tr '+rowId).length){
+                alert('does exist');
+              }
+
             sendRequest(input);
           }
         }
       });
 
+      //remove product from table if delete button is pressed
       $('#results').on('click', '#deleteItem', function(){
         $(this).closest ('tr').remove ();
       });
 
-//jQuery & document end braces
+  //jQuery & document end braces
   });
 
+  function replaceString(code)
+  {
+    return '#'+code.replace(/\s/g, '');
+  }
+
+  /**
+  * If product doesn't already exist, send an ajax request to find the product
+  */
   function sendRequest(code)
   {
 
@@ -40,7 +54,7 @@ jQuery(function($){
             console.log(data);
             $("#loading-mask").hide();
 
-            drawTable(data);
+            drawTable(data, code);
 
             $("#results-table").show();
         },
@@ -48,9 +62,29 @@ jQuery(function($){
           console.log('Something went wrong', status, err);
         }
     });
+
   }
 
-  function drawTable(data)
+  /**
+  * Check if product exists in table before sending an unnecessary ajax request
+  */
+  function doesProductExist(code)
+  {
+
+    var identifier = code;
+    var rowId = '#'+identifier.replace(/\s/g, '');
+    if($('#results tr '+rowId).length == 0){
+      //what you should do when the row doesn't exist
+      sendRequest(code);
+
+    }
+    else{
+       //Horray you have the row you specified.
+        alert("row exists");
+    }
+  }
+
+  function drawTable(data, code)
   {
     var id = data['id'];
     var sku = data['sku'];
@@ -58,8 +92,10 @@ jQuery(function($){
     var stock_required = data['stock_required'];
     var product_name = data['name'];
 
+    //remove whitespace from code
+    var rowId = '#'+code.replace(/\s/g, '');
 
-    var row = "<tr id='"+id+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
+    var row = "<tr id='"+rowId+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
 
 
     $('#results tr:last').after(row);
