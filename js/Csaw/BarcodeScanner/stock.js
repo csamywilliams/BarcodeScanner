@@ -13,6 +13,9 @@ jQuery(function($){
         }
       });
 
+      $('#results').on('click', '#deleteItem', function(){
+        $(this).closest ('tr').remove ();
+      });
 
 //jQuery & document end braces
   });
@@ -49,16 +52,22 @@ jQuery(function($){
 
   function drawTable(data)
   {
+    var id = data['id'];
     var sku = data['sku'];
     var qty = data['qty'];
     var stock_required = data['stock_required'];
     var product_name = data['name'];
 
 
-    var row = "<tr><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td></tr>";
+    var row = "<tr id='"+id+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
 
 
     $('#results tr:last').after(row);
+  }
+
+  function deleteRow(id)
+  {
+    $("#results #".id).remove();
   }
 
 
