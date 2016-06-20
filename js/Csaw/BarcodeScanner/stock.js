@@ -9,11 +9,13 @@ jQuery(function($){
           if(input != null || input != '')
           {
               var rowId = replaceString(input);
-              if($('#results tr '+rowId).length){
-                alert('does exist');
+              if ($(rowId).length == 0){
+                //if row does not exist, send the request
+                sendRequest(input);
+              } else {
+                //if row does exist add one to
+                increaseQuantity(rowId);
               }
-
-            sendRequest(input);
           }
         }
       });
@@ -93,7 +95,7 @@ jQuery(function($){
     var product_name = data['name'];
 
     //remove whitespace from code
-    var rowId = '#'+code.replace(/\s/g, '');
+    var rowId = code.replace(/\s/g, '');
 
     var row = "<tr id='"+rowId+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
 
@@ -104,6 +106,17 @@ jQuery(function($){
   function deleteRow(id)
   {
     $("#results #".id).remove();
+  }
+
+  function increaseQuantity(rowId)
+  {
+    var tableRow = $(rowId).find('td').eq(4).find("input:text");
+
+    var quantity = parseInt($(tableRow).val()) + 1;
+
+    $(tableRow).val(quantity);
+
+    console.log($(tableRow).val());
   }
 
 
