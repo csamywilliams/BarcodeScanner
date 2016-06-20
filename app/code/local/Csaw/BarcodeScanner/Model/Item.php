@@ -14,7 +14,7 @@ class Csaw_BarcodeScanner_Model_Item
   {
      $this->id = $data['product']['entity_id'];
      $this->sku = $data['product']['sku'];
-     $this->qty = $data['stock'];
+     $this->qty = (int) $data['stock'];
      $this->name = $data['product']['name'];
     // $this->stock_required = $stock_required;
      $this->gtin = $data['product']['c2c_gtin'];
