@@ -28,6 +28,11 @@ jQuery(function($){
   //jQuery & document end braces
   });
 
+  /**
+  * Remove whitespace from string to create a unique code
+  * @param code - code entered by user
+  * @return unique code ID used for the row ID
+  */
   function replaceString(code)
   {
     return '#'+code.replace(/\s/g, '');
@@ -35,6 +40,7 @@ jQuery(function($){
 
   /**
   * If product doesn't already exist, send an ajax request to find the product
+  * @param code - search code entered by user
   */
   function sendRequest(code)
   {
@@ -56,7 +62,7 @@ jQuery(function($){
             console.log(data);
             $("#loading-mask").hide();
 
-            drawTable(data, code);
+            drawRow(data, code);
 
             $("#results-table").show();
         },
@@ -69,6 +75,7 @@ jQuery(function($){
 
   /**
   * Check if product exists in table before sending an unnecessary ajax request
+  * @param code - search code entered by user
   */
   function doesProductExist(code)
   {
@@ -86,7 +93,12 @@ jQuery(function($){
     }
   }
 
-  function drawTable(data, code)
+  /**
+  * Create a HTML row for the product and append to results table
+  * @param data - product data returned from ajax request
+  * @param code - code that has been entered by user
+  */
+  function drawRow(data, code)
   {
     var id = data['id'];
     var sku = data['sku'];
@@ -99,15 +111,22 @@ jQuery(function($){
 
     var row = "<tr id='"+rowId+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
 
-
     $('#results tr:last').after(row);
   }
 
-  function deleteRow(id)
+  /**
+  * Delete the product row in results table, when user clicks 'X' button
+  * @param rowId - id of row
+  */
+  function deleteRow(rowId)
   {
-    $("#results #".id).remove();
+    $("#results #".rowId).remove();
   }
 
+  /**
+  * Increase quantity of input box when multiple items scanned or entered
+  * @param rowId - table row ID of product
+  */
   function increaseQuantity(rowId)
   {
     var tableRow = $(rowId).find('td').eq(4).find("input:text");
@@ -115,8 +134,6 @@ jQuery(function($){
     var quantity = parseInt($(tableRow).val()) + 1;
 
     $(tableRow).val(quantity);
-
-    console.log($(tableRow).val());
   }
 
 
