@@ -1,7 +1,12 @@
 jQuery(function($){
   $( document ).ready(function(){
     $('#btn-start').click(function(){
+
+      clearTable();
+
       var action = $('#action-choice').val();
+
+//      refreshTable();
 
       var identifier = [];
       $.each($("input[name='identifier[]']:checked"), function() {
@@ -26,6 +31,42 @@ jQuery(function($){
       }
     });
   });
+
+  /**
+  * Ask user if they want to clear the table, if it already exists
+  * If user confirms, clear and hide the table
+  */
+  function clearTable()
+  {
+    var rowCount = $('#results tr').length;
+    var clear = true;
+
+    if(rowCount >= 2) {
+      var action = confirm("Are you sure you want to clear the table?");
+      if(action == true) {
+          clear = true;
+      } else {
+          clear = false;
+      }
+    } else {
+      clear = false;
+    }
+
+    if(clear) {
+      $("#results").find("tr:gt(0)").remove();
+      $('#results-table').hide();
+      $('#scan-barcode').hide();
+      $('input#scanbox').val('');
+    }
+  }
+
+  // function refreshTable()
+  // {
+  //   $("#results").empty();
+  //   $('#results-table').hide();
+  //   $('#scan-barcode').hide();
+  //   $('#scanbarcode').val('');
+  // }
 });
 
 /**

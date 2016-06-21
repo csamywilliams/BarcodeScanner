@@ -61,7 +61,6 @@ jQuery(function($){
         success: function(data) {
             console.log(data);
             $("#loading-mask").hide();
-
             drawRow(data, code);
 
             $("#results-table").show();

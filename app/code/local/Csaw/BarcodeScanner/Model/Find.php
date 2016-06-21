@@ -54,11 +54,11 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     //if it's a GTIN (most likely)
     if(in_array("GTIN", $attribute))
     {
-        $product = Mage::getModel('catalog/product')->loadByAttribute('GTIN', $code);
         Mage::log('in gtin', null, 'mylogfile.log');
+        $product = Mage::getModel('catalog/product')->loadByAttribute('c2c_gtin', $code);
     } else if (in_array("EAN", $attribute))
     {
-        $ean_product = Mage::getModel('catalog/product')->loadByAttribute('EAN', $code);
+        $product = Mage::getModel('catalog/product')->loadByAttribute('EAN', $code);
         Mage::log('in ean', null, 'mylogfile.log');
 
     } else if (in_array("ID", $attribute))
