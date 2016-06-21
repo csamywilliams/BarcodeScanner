@@ -40,40 +40,33 @@ jQuery(function($){
       var identifier = $("input[name='identifier']:checked").val();
       var results = getTableRows();
 
-      // $.ajax({
-      //     url: '/barcodescanner/index/save',
-      //     type: "POST",
-      //     dataType:"json",
-      //     data: {form_key: window.FORM_KEY, results:results, identifier: identifier},
-      //     success: function(data) {
-      //         console.log(data);
-      //         $("#loading-mask").hide();
-      //         drawRow(data, code);
-      //
-      //         $("#results-table").show();
-      //     },
-      //     error: function (req, status, err) {
-      //       console.log('Something went wrong', status, err);
-      //       alert("Product not found");
-      //       $("#loading-mask").hide();
-      //       $('input#scanbox').val('');
-      //     }
-      // });
+      $.ajax({
+          url: '/barcodescanner/index/save',
+          type: "POST",
+          dataType:"json",
+          data: {form_key: window.FORM_KEY, results:results, identifier: identifier},
+          success: function(data) {
+              console.log(data);
+          },
+          error: function (req, status, err) {
+            console.log('Something went wrong', status, err);
+          }
+      });
     }
 
     function getTableRows()
     {
-    //  var rows = [];
+      var rows = [];
       $('#results > tbody > tr').each(function () {
-          console.log($(this).find('td').eq(4).find("input:text").val())
-          console.log($(this).html());
+          var product = {};
+          product = {
+            sku: $(this).find('td').eq(0).html(),
+            qty_input: $(this).find('td').eq(4).find("input:text").val()
+          }
+          rows.push(product);
       });
-
+      return rows;
     }
-
-
-
-
   });
 
   /**
