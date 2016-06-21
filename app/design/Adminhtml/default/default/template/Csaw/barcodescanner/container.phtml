@@ -45,15 +45,22 @@
     display:none;
 
   }
+
+  .btn-right
+  {
+    margin-left: 10px;
+    float:right;
+  }
 </style>
 <div class="page-title">
     <h1><?php echo $this->__('Barcode Scanner') ?></h1>
 </div>
+<br/>
 <div>
   <div class="row box">
       <div class="left action-div">
         <label><strong>Action</strong></label>
-        <select id="action-choice" form="transfer-action">
+        <select id="action-choice">
           <option value="blank">Select action</option>
           <option value="incoming">Incoming stock</option>
           <option value="outgoing">Outgoing stock</option>
@@ -66,9 +73,12 @@
         <input class="chckboxid" type="radio" name="identifier" value="EAN" /> EAN
         <input class="chckboxid" type="radio" name="identifier" value="GTIN" /> GTIN
         <input class="chckboxid" type="radio" name="identifier" value="ID" /> ID
-       <button class="margin-left" id='btn-start' type='button'><?php echo $this->__('Start'); ?></button>
+        <button class="margin-left" id='btn-start' type='button'><?php echo $this->__('Start'); ?></button>
+
+        <button id='btn-cancel' class='btn-right' type='button'><?php echo $this->__('Cancel'); ?></button>
+        <button id='btn-save' class='btn-right' type='button'><?php echo $this->__('Save'); ?></button>
       </div>
-    </form>
+
   </div>
 </div>
 <div id="scan-barcode" class="row box">
