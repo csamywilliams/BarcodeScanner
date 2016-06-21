@@ -44,7 +44,6 @@ jQuery(function($){
   */
   function sendRequest(code)
   {
-
     //get the identifier and action, may need to change as duplicating in trigger.js
     var action = $('#action-choice').val();
     var identifier = $("input[name='identifier']:checked").val();
@@ -90,7 +89,7 @@ jQuery(function($){
 
     var row = "<tr id='"+rowId+"'><td>"+sku+"</td><td>"+product_name+"</td><td>"+qty+"</td><td>"+stock_required+"</td><td><input id='item' value='"+'1'+"'></input></td><td><button id='deleteItem'>X</></td></tr>";
 
-    $('#results tr:last').after(row);
+    $('#results tbody').append(row);
   }
 
   /**

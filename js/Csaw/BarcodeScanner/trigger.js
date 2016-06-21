@@ -6,7 +6,6 @@ jQuery(function($){
 
       var action = $('#action-choice').val();
 
-
       var identifier = $("input[name='identifier']:checked").val();
 
       var validated = validateActions(action, identifier);
@@ -26,6 +25,55 @@ jQuery(function($){
         alert("Please ensure an action and at least one identifier has been picked.");
       }
     });
+
+    $('#btn-save').click(function (){
+        saveItems();
+    });
+
+    //clear table if button is pressed
+    $('#btn-cancel').click(function (){
+      clearTable();
+    });
+
+    function saveItems()
+    {
+      var identifier = $("input[name='identifier']:checked").val();
+      var results = getTableRows();
+
+      // $.ajax({
+      //     url: '/barcodescanner/index/save',
+      //     type: "POST",
+      //     dataType:"json",
+      //     data: {form_key: window.FORM_KEY, results:results, identifier: identifier},
+      //     success: function(data) {
+      //         console.log(data);
+      //         $("#loading-mask").hide();
+      //         drawRow(data, code);
+      //
+      //         $("#results-table").show();
+      //     },
+      //     error: function (req, status, err) {
+      //       console.log('Something went wrong', status, err);
+      //       alert("Product not found");
+      //       $("#loading-mask").hide();
+      //       $('input#scanbox').val('');
+      //     }
+      // });
+    }
+
+    function getTableRows()
+    {
+    //  var rows = [];
+      $('#results > tbody > tr').each(function () {
+          console.log($(this).find('td').eq(4).find("input:text").val())
+          console.log($(this).html());
+      });
+
+    }
+
+
+
+
   });
 
   /**
@@ -56,13 +104,8 @@ jQuery(function($){
     }
   }
 
-  // function refreshTable()
-  // {
-  //   $("#results").empty();
-  //   $('#results-table').hide();
-  //   $('#scan-barcode').hide();
-  //   $('#scanbarcode').val('');
-  // }
+
+
 });
 
 /**
