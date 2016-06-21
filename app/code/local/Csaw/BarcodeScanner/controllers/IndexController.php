@@ -28,6 +28,11 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
 
     }
 
+    public function saveAction()
+    {
+      Mage::log("in save action", null, 'saved.log');
+    }
+
 }
 
 ?>
