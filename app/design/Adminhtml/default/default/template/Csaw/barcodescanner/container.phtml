@@ -62,10 +62,10 @@
       </div>
       <div>
         <label><strong>Identifier</strong></label>
-        <input class="chckboxid" type="checkbox" name="identifier[]" value="SKU" /> SKU
-        <input class="chckboxid" type="checkbox" name="identifier[]" value="EAN" /> EAN
-        <input class="chckboxid" type="checkbox" name="identifier[]" value="GTIN" /> GTIN
-        <input class="chckboxid" type="checkbox" name="identifier[]" value="ID" /> ID
+        <input class="chckboxid" type="radio" name="identifier" value="SKU" /> SKU
+        <input class="chckboxid" type="radio" name="identifier" value="EAN" /> EAN
+        <input class="chckboxid" type="radio" name="identifier" value="GTIN" /> GTIN
+        <input class="chckboxid" type="radio" name="identifier" value="ID" /> ID
        <button class="margin-left" id='btn-start' type='button'><?php echo $this->__('Start'); ?></button>
       </div>
     </form>

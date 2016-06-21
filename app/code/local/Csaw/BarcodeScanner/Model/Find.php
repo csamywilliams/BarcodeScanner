@@ -1,5 +1,10 @@
 <?php
-
+/**
+* Barcode Scanner Find Model
+* Model to retrieve the product information based on the user input entered and identifier selected.
+* @author Amy Williams
+* @copyright 21/06/16
+*/
 class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
 
   public function __construct()
@@ -7,30 +12,23 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
     $this->_init('barcodescanner/find');
   }
 
-  public function findProduct($code, $identifiers)
+  /**
+  * Find the product using the user input and identifier.
+  * @param code - user input barcode, ID, SKU
+  * @param identifier - SKU, ID, GTIN or EAN
+  */
+  public function findProduct($code, $identifier)
   {
 
     $item_found = null;
     //if code contains only digits then it must be an id, GTIN or EAN
     if(ctype_digit($code))
     {
-      $length = sizeof($identifiers);
-
-      if($length == 1)
-      {
-        $product = $this->getProduct($code, $identifiers);
-      } else
-      {
-        $product = $this->searchByMultipleIdentifiers($code, $identifiers);
-      }
-
+      $product = $this->getProduct($code, $identifier);
     } else
     {
-      if (in_array("SKU", $identifiers))
-      {
         //can only be a SKU based on our individual products
         $product = Mage::getModel('catalog/product')->loadByAttribute('SKU', $code);
-      }
     }
 
     if(isset($product))
@@ -40,6 +38,11 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
                                                           'stock' =>  $stock->getQty()));
     }
 
+    if(!isset($item_found))
+    {
+      $item_found = "Product not found, please try again";
+    }
+
     Mage::log($product, null, 'item.log');
     return $item_found;
 
@@ -47,52 +50,29 @@ class Csaw_BarcodeScanner_Model_Find extends Mage_Core_Model_Abstract {
 
   /**
   * Get product from database based on the search code and identifiers
+  * @param code - user input
+  * @param attribute - product identifier
+  * @return product object
   */
   public function getProduct($code, $attribute)
   {
     $product = null;
-    //if it's a GTIN (most likely)
-    if(in_array("GTIN", $attribute))
-    {
-        Mage::log('in gtin', null, 'mylogfile.log');
+
+    switch ($attribute) {
+      case "GTIN":
         $product = Mage::getModel('catalog/product')->loadByAttribute('c2c_gtin', $code);
-    } else if (in_array("EAN", $attribute))
-    {
+      break;
+      case "EAN":
         $product = Mage::getModel('catalog/product')->loadByAttribute('EAN', $code);
-        Mage::log('in ean', null, 'mylogfile.log');
-
-    } else if (in_array("ID", $attribute))
-    {
+      break;
+      case "ID":
         $product = Mage::getModel('catalog/product')->load($code);
-        Mage::log('ID', null, 'mylogfile.log');
-
-    }  else if (in_array("SKU", $attribute))
-    {
+      break;
+      case "SKU":
         $product = Mage::getModel('catalog/product')->loadByAttribute('SKU', $code);
-        Mage::log('SKU', null, 'mylogfile.log');
+      break;
     }
 
     return $product;
   }
-
-  /**
-  * Need to get all products by multiple identifiers and return those products in an array
-  */
-  public function searchByMultipleIdentifiers($code, $identifiers)
-  {
-    $products_found = array();
-    foreach($identifiers as $attribute)
-    {
-      $product = getProduct($code, $identifiers);
-
-      if(isset($product) && $product != null)
-      {
-        array_push($products_found, $product);
-      }
-    }
-    return $products_found;
-  }
-
-
-
 }

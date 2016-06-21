@@ -47,10 +47,7 @@ jQuery(function($){
 
     //get the identifier and action, may need to change as duplicating in trigger.js
     var action = $('#action-choice').val();
-    var identifier = [];
-    $.each($("input[name='identifier[]']:checked"), function() {
-      identifier.push($(this).val());
-    });
+    var identifier = $("input[name='identifier']:checked").val();
 
     $("#loading-mask").show();
     $.ajax({
@@ -67,29 +64,12 @@ jQuery(function($){
         },
         error: function (req, status, err) {
           console.log('Something went wrong', status, err);
+          alert("Product not found");
+          $("#loading-mask").hide();
+          $('input#scanbox').val('');
         }
     });
 
-  }
-
-  /**
-  * Check if product exists in table before sending an unnecessary ajax request
-  * @param code - search code entered by user
-  */
-  function doesProductExist(code)
-  {
-
-    var identifier = code;
-    var rowId = '#'+identifier.replace(/\s/g, '');
-    if($('#results tr '+rowId).length == 0){
-      //what you should do when the row doesn't exist
-      sendRequest(code);
-
-    }
-    else{
-       //Horray you have the row you specified.
-        alert("row exists");
-    }
   }
 
   /**

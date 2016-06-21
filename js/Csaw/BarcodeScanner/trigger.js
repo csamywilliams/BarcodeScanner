@@ -6,12 +6,8 @@ jQuery(function($){
 
       var action = $('#action-choice').val();
 
-//      refreshTable();
 
-      var identifier = [];
-      $.each($("input[name='identifier[]']:checked"), function() {
-        identifier.push($(this).val());
-      });
+      var identifier = $("input[name='identifier']:checked").val();
 
       var validated = validateActions(action, identifier);
 
