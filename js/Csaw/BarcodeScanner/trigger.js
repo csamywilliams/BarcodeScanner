@@ -40,15 +40,18 @@ jQuery(function($){
       var action = $('#action-choice').val();
       var results = getTableRows();
 
+      $("#loading-mask").show();
       $.ajax({
           url: '/barcodescanner/index/save',
           type: "POST",
           dataType:"json",
           data: {form_key: window.FORM_KEY, results:results, action:action},
           success: function(data) {
+              $("#loading-mask").hide();
               console.log(data);
           },
           error: function (req, status, err) {
+            $("#loading-mask").hide();
             console.log('Something went wrong', status, err);
           }
       });

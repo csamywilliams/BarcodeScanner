@@ -7,11 +7,13 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
        $this->renderLayout();
     }
 
+    /**
+    * Find product by code and identifier
+    */
     public function searchAction()
     {
       //get the barcode, identifier and action for the product scanned or entered.
       $code = $this->getRequest()->getPost('input');
-      $action = $this->getRequest()->getPost('action');
       $identifier = $this->getRequest()->getPost('identifier');
 
       Mage::log($identifier, null, 'identifier.log');
@@ -22,46 +24,22 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
       } else {
         $product = "Product not found, please try a different code";
       }
-      Mage::log($product, null, 'item.log');
 
       $this->getResponse()->setBody(json_encode($product));
 
     }
 
+    /**
+    * Save action used by Ajax request to save the products
+    */
     public function saveAction()
     {
       $items = $this->getRequest()->getPost('results');
       $action = $this->getRequest()->getPost('action');
 
-      $operator = null;
-      switch($action)
-      {
-        case "incoming":
-          $operator = '+';
-          break;
-        case "outgoing":
-          $operator = '-';
-          break;
-        case "update":
-          $operator = '=';
-          break;
-        default:
-          $msg = "Unable to perform action";
-      }
+      $msg = Mage::getModel('barcodescanner/save')->saveProducts($items, $action);
 
-      if(isset($operator) && $operator != null)
-      {
-        $msg = Mage::getModel('barcodescanner/save')->saveProducts($items, $operator);
-      } else
-      {
-        Mage::log("Problem with operator, could not perform action", null, 'indexErrorController.log');
-        $msg = "Unable to save items";
-      }
-
-      Mage::log($items, null, 'saved.log');
-
-      echo $msg;
-
+      $this->getResponse()->setBody(json_encode($msg));
     }
 
 }
