@@ -30,7 +30,38 @@ class Csaw_BarcodeScanner_IndexController extends Mage_Adminhtml_Controller_Acti
 
     public function saveAction()
     {
-      Mage::log("in save action", null, 'saved.log');
+      $items = $this->getRequest()->getPost('results');
+      $action = $this->getRequest()->getPost('action');
+
+      $operator = null;
+      switch($action)
+      {
+        case "incoming":
+          $operator = '+';
+          break;
+        case "outgoing":
+          $operator = '-';
+          break;
+        case "update":
+          $operator = '=';
+          break;
+        default:
+          $msg = "Unable to perform action";
+      }
+
+      if(isset($operator) && $operator != null)
+      {
+        $msg = Mage::getModel('barcodescanner/save')->saveProducts($items, $operator);
+      } else
+      {
+        Mage::log("Problem with operator, could not perform action", null, 'indexErrorController.log');
+        $msg = "Unable to save items";
+      }
+
+      Mage::log($items, null, 'saved.log');
+
+      echo $msg;
+
     }
 
 }

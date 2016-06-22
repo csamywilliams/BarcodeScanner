@@ -32,19 +32,19 @@ jQuery(function($){
 
     //clear table if button is pressed
     $('#btn-cancel').click(function (){
-      clearTable();
+        clearTable();
     });
 
     function saveItems()
     {
-      var identifier = $("input[name='identifier']:checked").val();
+      var action = $('#action-choice').val();
       var results = getTableRows();
 
       $.ajax({
           url: '/barcodescanner/index/save',
           type: "POST",
           dataType:"json",
-          data: {form_key: window.FORM_KEY, results:results, identifier: identifier},
+          data: {form_key: window.FORM_KEY, results:results, action:action},
           success: function(data) {
               console.log(data);
           },
